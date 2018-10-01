@@ -1,0 +1,4 @@
+#Thu Sep 20 13:19:52 CEST 2018
+base.0=/home/rafmar/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dexMerger/debug/8
+path.0=classes.dex
+renamed.0=classes.dex
