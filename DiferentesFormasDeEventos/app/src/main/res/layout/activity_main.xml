@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+   <com.example.rafmar.diferentesformasdeeventos.MyButton
+        android:id="@+id/cmdOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="One" />
+
+    <Button
+        android:id="@+id/cmdTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Two"
+        android:onClick="cmdTwo_click" />
+
+    <Button
+        android:id="@+id/cmdThree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Three" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
