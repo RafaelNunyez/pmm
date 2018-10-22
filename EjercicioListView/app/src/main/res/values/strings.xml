@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">EjercicioListView</string>
+    <string name="lista1_prompt">
+      Vendedores de Android (Elección DESDE XML)
+     </string>
+    <string-array name="lista1_entries">
+        <item>Acer</item>
+        <item>Dell</item>
+        <item>HTC</item>
+        <item>Huawei</item>
+        <item>Kyocera</item>
+        <item>LG</item>
+        <item>Motorola</item>
+        <item>Nexus</item>
+        <item>Samsung</item>
+        <item>Sony Ericsson</item>
+        <item>T-Mobile</item>
+        <item>Neptune</item>
+    </string-array>
+</resources>
