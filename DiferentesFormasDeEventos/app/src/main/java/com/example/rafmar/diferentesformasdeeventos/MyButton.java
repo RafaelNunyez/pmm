@@ -2,6 +2,7 @@ package com.example.rafmar.diferentesformasdeeventos;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -33,5 +34,7 @@ public class MyButton extends android.support.v7.widget.AppCompatButton implemen
     public void onClick (View v) {
         text = (TextView) ((Activity) ctx).findViewById(R.id.text);
         text.setText("Pressing Button One");
+        text.setTextColor(Color.MAGENTA);
+        text.setBackgroundColor(Color.BLACK);
     }
 }
