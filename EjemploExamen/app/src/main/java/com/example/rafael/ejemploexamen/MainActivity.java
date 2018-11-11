@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -20,9 +21,11 @@ public class MainActivity extends AppCompatActivity {
     private static int precioZona;
     private static double precioKilo;
     private static EditText peso;
-    private static RadioButton urgente;
     private static RadioButton normal;
+    private static RadioButton urgente;
     private static TextView eleccion;
+    private static CheckBox caja;
+    private static CheckBox tarjeta;
     private double total;
     private Zonas zone;
 
@@ -67,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         normal.toggle();
 
         urgente = (RadioButton) findViewById(R.id.urgente);
+
+        caja = (CheckBox) findViewById(R.id.caja);
+
+        tarjeta = (CheckBox) findViewById(R.id.tarjeta);
     }
 
     public void calcular (View view) {
@@ -86,6 +93,19 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle miBundle = new Bundle();
         miBundle.putSerializable("TODO", zone);
+        if (!urgente.isChecked())
+            miBundle.putString("TARIFA", "Normal");
+        else
+            miBundle.putString("TARIFA", "Urgente");
+        miBundle.putDouble("PESO", Double.valueOf(peso.getText().toString()));
+
+        if (caja.isChecked() && !tarjeta.isChecked())
+            miBundle.putString("DECO", "Caja Regalo");
+        else if (!caja.isChecked() && tarjeta.isChecked())
+            miBundle.putString("DECO", "Tarjeta Dedicada");
+        else if (caja.isChecked() && tarjeta.isChecked())
+            miBundle.putString("DECO", "Caja Regalo Y Tarjeta Dedicada");
+
         miBundle.putDouble("PRECIO", total);
         miIntent.putExtras(miBundle);
         startActivity(miIntent);
