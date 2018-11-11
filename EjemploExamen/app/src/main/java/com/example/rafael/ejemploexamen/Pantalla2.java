@@ -4,6 +4,11 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,5 +39,21 @@ public class Pantalla2 extends AppCompatActivity {
         peso.setText("Peso: " + getIntent().getDoubleExtra("PESO", 0));
         deco.setText("Decoración: " + getIntent().getStringExtra("DECO"));
         total.setText("Precio total del envío: " + String.valueOf(getIntent().getDoubleExtra("PRECIO", 0)) + "€");
+
+        registerForContextMenu(mapa);
     }
+
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_ctx_image, menu);
+
+        return true;
+    }
+
+    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_ctx_image, menu);
+    }
+
 }
