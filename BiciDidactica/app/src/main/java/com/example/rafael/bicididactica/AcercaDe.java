@@ -1,9 +1,9 @@
 package com.example.rafael.bicididactica;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class AcercaDe extends Activity {
+public class AcercaDe extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

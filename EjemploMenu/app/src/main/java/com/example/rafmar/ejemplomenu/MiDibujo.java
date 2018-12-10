@@ -39,6 +39,7 @@ public class MiDibujo extends View {
         miPincel.setStyle(Paint.Style.FILL_AND_STROKE);
         miPincel.setStrokeWidth(3);
         miPincel.setTextSize(60);
+        miPincel.setTextAlign(Paint.Align.CENTER);
         // Escritura de un texto
         canvas.drawText(mensaje, 400, 100, miPincel);
 

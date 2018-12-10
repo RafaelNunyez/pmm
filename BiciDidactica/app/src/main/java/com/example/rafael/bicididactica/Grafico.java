@@ -14,7 +14,7 @@ public class Grafico {
     // Vista donde dibujamos el gráfico
     private View view;
     // Para determinar el espacio a borrar
-    public static final int MAX_VELOCIDAD = 20;
+    public static final int maxVelocidad = 20;
 
     //Inicializamos los atributos de esta clase
     public Grafico(View view, Drawable drawable) {
@@ -23,6 +23,10 @@ public class Grafico {
         ancho = drawable.getIntrinsicWidth();
         alto = drawable.getIntrinsicHeight();
         radioColision = (alto + ancho) / 4;
+    }
+
+    public static double getMaxVelocidad() {
+        return maxVelocidad;
     }
 
     //Dibujamos el gráfico en su posición actual
@@ -37,9 +41,9 @@ public class Grafico {
         canvas.restore();
         //Calculo área donde no podrán solaparse/chocar
         //otros gráficos con este
-        int rInval = (int) distanciaE(0, 0, ancho, alto) / 2 + MAX_VELOCIDAD;
+        int rInval = (int) distanciaE(0, 0, ancho, alto) / 4 + maxVelocidad;
         view.invalidate(x - rInval, y - rInval, x + rInval, y + rInval);
-    };
+    }
 
     //Correccion posición si el gráfico sale de la pantalla
     //En estos casos aparece por el otro lado de la pantalla
@@ -85,8 +89,20 @@ public class Grafico {
         this.incY = v;
     }
 
+    public double getIncX() {
+        return incX;
+    }
+
+    public double getIncY() {
+        return incY;
+    }
+
     public void setAngulo(int i) {
         this.angulo = i;
+    }
+
+    public int getAngulo() {
+        return angulo;
     }
 
     public void setRotacion(int i) {
@@ -108,4 +124,13 @@ public class Grafico {
     public void setPosY(double v) {
         this.posY = v;
     }
+
+    public double getPosX() {
+        return posX;
+    }
+
+    public double getPosY() {
+        return posY;
+    }
 }
+
