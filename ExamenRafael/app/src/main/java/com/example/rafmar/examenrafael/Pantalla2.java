@@ -23,8 +23,8 @@ public class Pantalla2 extends AppCompatActivity {
         final TextView seguro = (TextView) findViewById(R.id.seguro);
         final TextView total = (TextView) findViewById(R.id.total);
 
-
         Coches coche = (Coches) getIntent().getSerializableExtra("TODO");
+
         imagen.setBackground(getDrawable(coche.getImagen()));
         modelo.setText("Modelo: " + coche.getMarca() + " " + coche.getModelo());
         precio.setText("€/Hora: " + coche.getPrecio());

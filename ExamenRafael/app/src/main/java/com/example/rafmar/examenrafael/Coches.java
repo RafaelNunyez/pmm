@@ -6,10 +6,10 @@ public class Coches implements Serializable {
     private int id;
     private String modelo;
     private String marca;
-    private String precio;
+    private int precio;
     private int imagen;
 
-    public Coches (int id, String modelo, String marca, String precio, int imagen) {
+    public Coches (int id, String modelo, String marca, int precio, int imagen) {
         this.id = id;
         this.modelo = modelo;
         this.marca = marca;
@@ -29,7 +29,7 @@ public class Coches implements Serializable {
         return marca;
     }
 
-    public String getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 

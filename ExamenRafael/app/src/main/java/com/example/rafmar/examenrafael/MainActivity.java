@@ -7,6 +7,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private Coches coche;
 
     private Coches[] coches = new Coches[] {
-        new Coches(0, "Megane", "Seat", "20€", R.drawable.megan1),
-        new Coches(1, "X-11", "Ferrari", "100€", R.drawable.ferrari1),
-        new Coches(2, "Leon", "Seat", "30€", R.drawable.leon1),
-        new Coches(3, "Fiesta", "Ford", "40€", R.drawable.fiesta1)
+        new Coches(0, "Megane", "Seat", 20, R.drawable.megan1),
+        new Coches(1, "X-11", "Ferrari", 100, R.drawable.ferrari1),
+        new Coches(2, "Leon", "Seat", 30, R.drawable.leon1),
+        new Coches(3, "Fiesta", "Ford", 40, R.drawable.fiesta1)
     };
 
     @Override
@@ -52,10 +55,16 @@ public class MainActivity extends AppCompatActivity {
 
         lstOpciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick (AdapterView arg0, View arg1, int position, long id) {
-                if (position == 0) precioCoche = 20;
-                if (position == 1) precioCoche = 100;
-                if (position == 2) precioCoche = 30;
-                if (position == 3) precioCoche = 40;
+                switch (position) {
+                    case 0:
+                        precioCoche = coches[position].getPrecio();
+                    case 1:
+                        precioCoche = coches[position].getPrecio();
+                    case 2:
+                        precioCoche = coches[position].getPrecio();
+                    case 3:
+                        precioCoche = coches[position].getPrecio();
+                }
 
                 eleccion.setText("Coche Elegido: " + coches[position].getMarca() + " " + coches[position].getModelo());
 
@@ -80,22 +89,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void calcular (View view) {
-
-
+        extras = 0;
         horas = Double.valueOf(tiempo.getText().toString());
 
         total = horas * precioCoche;
-
-        if (seguro.isChecked())
-            total *= 1.3;
-
-        Bundle miBundle = new Bundle();
-        miBundle.putSerializable("TODO", coche);
-        if (!seguro.isChecked())
-            miBundle.putString("TARIFA", "Normal");
-        else
-            miBundle.putString("TARIFA", "Urgente");
-        miBundle.putDouble("PESO", Double.valueOf(tiempo.getText().toString()));
 
         if (ac.isChecked())
             extras += 50;
@@ -113,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void factura (View view) {
+        extras = 0;
         horas = Double.valueOf(tiempo.getText().toString());
 
         Intent miIntent = new Intent(MainActivity.this, Pantalla2.class);
@@ -120,16 +118,25 @@ public class MainActivity extends AppCompatActivity {
 
         miBundle.putSerializable("TODO", coche);
 
+        if (ac.isChecked())
+            extras += 50;
+        if(gps.isChecked())
+            extras += 50;
+        if (dvd.isChecked())
+            extras += 50;
+
         miBundle.putDouble("EXTRAS", extras);
 
         miBundle.putString("HORAS", String.valueOf(horas));
 
+        total = horas * precioCoche + extras;
+
         if (noSeguro.isChecked())
             miBundle.putString("SEGURO", "Sin seguro");
-        else
+        else {
             miBundle.putString("SEGURO", "Seguro a todo riesgo");
-
-        total = horas * precioCoche + extras;
+            total *= 1.2;
+        }
 
         miBundle.putDouble("PRECIO", total);
 
@@ -175,11 +182,38 @@ public class MainActivity extends AppCompatActivity {
 
             holder.marca.setText(coches[position].getMarca());
 
-            holder.precio.setText(coches[position].getPrecio());
+            holder.precio.setText(coches[position].getPrecio() + "€");
 
             holder.imagen.setBackground(getDrawable(coches[position].getImagen()));
 
             return (item);
         }
+    }
+
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_principal, menu);
+
+        return true;
+    }
+
+    public boolean onOptionsItemSelected (MenuItem item) {
+        /*switch (item.getItemId()) {
+            case R.id.MnuOpc1:
+                mensaje.setText("Opción 1 Pulsada");
+                return true;
+            case R.id.MnuOpc2:
+                mensaje.setText("Opción 2 Pulsada");
+                return true;
+            case R.id.MnuOpc3:
+                mensaje.setText("Opción 3 Pulsada");
+                return true;
+            case R.id.SubItem1:
+                mensaje.setText("SubItem 1 Pulsada");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }*/
+        return true;
     }
 }
