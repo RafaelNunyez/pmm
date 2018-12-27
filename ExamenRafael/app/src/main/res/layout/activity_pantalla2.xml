@@ -48,8 +48,9 @@
         android:text="Hora Pedido:" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/horaPedido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="hora"
         android:text="Hora" />
 </LinearLayout>

@@ -1,11 +1,15 @@
 package com.example.rafmar.examenrafael;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class Pantalla2 extends AppCompatActivity {
 
@@ -33,5 +37,19 @@ public class Pantalla2 extends AppCompatActivity {
         seguro.setText("Seguro: " + getIntent().getStringExtra("SEGURO"));
         total.setText("Coste total: " + String.valueOf(getIntent().getDoubleExtra("PRECIO", 0)) + "€");
 
+    }
+
+    public void hora (View view) {
+        TimePicker timePicker = new TimePicker(getApplicationContext());
+
+        int hora = timePicker.getCurrentHour();
+        int minutos = timePicker.getCurrentMinute();
+        String horaActual = hora + ":" + minutos;
+
+        Toast.makeText(getApplicationContext(), horaActual, Toast.LENGTH_LONG).show();
+        
+        Intent miIntent = new Intent(Pantalla2.this, MainActivity.class);
+
+        startActivity(miIntent);
     }
 }

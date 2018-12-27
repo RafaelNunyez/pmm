@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         dvd = (CheckBox) findViewById(R.id.radio);
 
         precio = (TextView) findViewById(R.id.total);
+
+
     }
 
     public void calcular (View view) {
