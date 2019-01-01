@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DescFragment">
+    tools:context=".DescFragment"
+    android:id="@+id/DescLayout">
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/descript"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

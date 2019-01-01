@@ -4,9 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,35 +31,35 @@ public class SpinnerFragment extends Fragment {
                                     new Obras(0, "A", "Seat", "",
                                             "bvsrdfbv rdfbcv"),
                                     new Obras(1, "B", "Ferrari", "",
-                                            ""),
+                                            "hhsdf"),
                                     new Obras(2, "Leon", "Seat", "",
-                                            ""),
+                                            "sdfg"),
                                     new Obras(3, "Fiesta", "Ford", "",
-                                            "")
+                                            "sdfg")
                             )
                     )),
                     new Autores(1, "X-11", "Ferrari", "España", 20, new ArrayList<Obras> (
                             Arrays.asList(
                                     new Obras(0, "C", "Seat", "",
-                                            ""),
+                                            "sdfg"),
                                     new Obras(1, "D", "Ferrari", "",
-                                            ""),
+                                            "sdf"),
                                     new Obras(2, "Leon", "Seat", "",
-                                            ""),
+                                            "sdf"),
                                     new Obras(3, "Fiesta", "Ford", "",
-                                            "")
+                                            "sdfg")
                             )
                     )),
                     new Autores(2, "Leon", "Seat", "España", 20, new ArrayList<Obras> (
                             Arrays.asList(
                                     new Obras(0, "Megane", "Seat", "",
-                                            ""),
+                                            "sdfg"),
                                     new Obras(1, "X-11", "Ferrari", "",
-                                            ""),
+                                            "sdfg"),
                                     new Obras(2, "Leon", "Seat", "",
-                                            ""),
+                                            "sdfg"),
                                     new Obras(3, "Fiesta", "Ford", "",
-                                            "")
+                                            "sdfg")
                             )
                     )),
                     new Autores(3, "Fiesta", "Ford", "España", 20, new ArrayList<Obras> (
@@ -78,8 +77,6 @@ public class SpinnerFragment extends Fragment {
             )
     );
 
-
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view;
         view = inflater.inflate(R.layout.fragment_spinner, container, false);
@@ -92,17 +89,14 @@ public class SpinnerFragment extends Fragment {
             public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
                 works.setAdapter(new AdaptadorObras(getActivity(), autores.get(position).getObras()));
 
-                final ArrayList obras = autores.get(position).getObras();
+                final ArrayList<Obras> obras = autores.get(position).getObras();
 
                 works.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
-                        /*Obras obra = (Obras) obras.get(position);
-                        Fragment description = new DescFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("OBRA", obra);
-                        description.setArguments(bundle);
-                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                        fm.beginTransaction().replace(R.id.SpinnerLayout, description).addToBackStack(null).commit();*/
+                        MainActivity.description = obras.get(position).getDescription();
+
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.description, new DescFragment()).addToBackStack(null).commit();
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {}
