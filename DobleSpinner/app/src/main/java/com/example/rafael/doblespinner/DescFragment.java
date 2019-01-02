@@ -2,6 +2,7 @@ package com.example.rafael.doblespinner;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class DescFragment extends Fragment {
 
         description = (TextView) view.findViewById(R.id.descript);
         description.setText(MainActivity.description);
+        description.setMovementMethod(new ScrollingMovementMethod());
         return view;
 
     }
