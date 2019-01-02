@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".SpinnerFragment"
     android:orientation="vertical"
-    android:weightSum="2"
-    android:id="@+id/SpinnerLayout">
+    android:weightSum="2">
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:id="@+id/writers">
+        android:id="@+id/studios">
 
     </Spinner>
 

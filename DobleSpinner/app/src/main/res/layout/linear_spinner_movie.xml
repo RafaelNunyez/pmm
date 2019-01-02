@@ -9,17 +9,12 @@
 
 
         <TextView
-            android:id="@+id/titulo"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
         <TextView
-            android:id="@+id/editorial"
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
-        <TextView
-            android:id="@+id/isbn"
+            android:id="@+id/year"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 

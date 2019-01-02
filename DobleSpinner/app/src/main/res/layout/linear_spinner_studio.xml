@@ -15,28 +15,28 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/nombre"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
         <TextView
-            android:id="@+id/lenguaje"
+            android:id="@+id/country"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
         <TextView
-            android:id="@+id/nacimiento"
+            android:id="@+id/founded"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
         <TextView
-            android:id="@+id/obras"
+            android:id="@+id/works_quantity"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imagen"
+        android:id="@+id/image"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_weight="1" />

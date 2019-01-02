@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DescFragment"
-    android:id="@+id/DescLayout">
+    tools:context=".DescFragment">
 
     <TextView
         android:id="@+id/descript"
