@@ -38,8 +38,8 @@ public class Figura extends AppCompatActivity {
         @Override
         protected void onDraw (Canvas canvas) {
             Paint pincel = new Paint();
-            pincel.setColor(Color.BLUE);
-            pincel.setStrokeWidth(15);
+            pincel.setColor(Color.BLACK);
+            pincel.setStrokeWidth(5);
             pincel.setStyle(Paint.Style.STROKE);
 
             pincel.setAntiAlias(true);
@@ -60,12 +60,12 @@ public class Figura extends AppCompatActivity {
                     break;
                 case "triangle":
                     Path path = new Path();
-                    path.moveTo(getWidth() / 2 - ancho / 2, getHeight() / 2 + alto / 2);
-                    path.lineTo(getWidth() / 2 + ancho / 2, getHeight() / 2 + alto / 2);
-                    path.moveTo(getWidth() / 2 + ancho / 2, getHeight() / 2 + alto / 2);
-                    path.lineTo(getWidth() / 2, getHeight() / 2 - alto / 2);
-                    path.moveTo(getWidth() / 2, getHeight() / 2 - alto / 2);
-                    path.lineTo(getWidth() / 2 - ancho / 2, getHeight() / 2 + alto / 2);
+                    path.moveTo(center.x - ancho / 2, center.y + alto / 2);
+                    path.lineTo(center.x + ancho / 2, center.y + alto / 2);
+                    path.moveTo(center.x + ancho / 2, center.y + alto / 2);
+                    path.lineTo(center.x, center.y - alto / 2);
+                    path.moveTo(center.x, getHeight() / 2 - alto / 2);
+                    path.lineTo(center.x - ancho / 2, center.y + alto / 2);
                     path.close();
 
                     canvas.drawPath(path, pincel);

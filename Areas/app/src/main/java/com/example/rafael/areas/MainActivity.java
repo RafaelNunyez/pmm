@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                     ancho = Integer.parseInt(base.getText().toString());
                 area.setText("Area = " + (Math.PI * Math.pow(ancho, 2)) + " cm²");
                 selection = "circle";
+                height.setEnabled(false);
             }
         });
 
@@ -52,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 if (!base.getText().toString().equals(""))
                     ancho = Integer.parseInt(base.getText().toString());
                 if (!height.getText().toString().equals(""))
-                    alto = Integer.parseInt(base.getText().toString());
+                    alto = Integer.parseInt(height.getText().toString());
                 area.setText("Area = " + (ancho * alto) + " cm²");
                 selection = "rectangle";
+                height.setEnabled(true);
             }
         });
 
@@ -65,9 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 if (!base.getText().toString().equals(""))
                     ancho = Integer.parseInt(base.getText().toString());
                 if (!height.getText().toString().equals(""))
-                    alto = Integer.parseInt(base.getText().toString());
+                    alto = Integer.parseInt(height.getText().toString());
                 area.setText("Area = " + (ancho * alto / 2) + " cm²");
                 selection = "triangle";
+                height.setEnabled(true);
             }
         });
     }
