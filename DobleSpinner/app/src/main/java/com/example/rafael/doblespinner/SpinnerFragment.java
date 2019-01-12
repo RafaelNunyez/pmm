@@ -1,11 +1,13 @@
 package com.example.rafael.doblespinner;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -198,10 +200,12 @@ public class SpinnerFragment extends Fragment {
 
                 works.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
-                        MainActivity.description = obras.get(position).getDescription();
-
+                        Fragment desc = DescFragment.newInstance(obras.get(position));
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ft.replace(R.id.description, new DescFragment()).addToBackStack(null).commit();
+
+                        ft.replace(R.id.description, desc);
+                        ft.addToBackStack(null);
+                        ft.commit();
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {}

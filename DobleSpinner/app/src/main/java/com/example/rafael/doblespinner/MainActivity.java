@@ -1,5 +1,7 @@
 package com.example.rafael.doblespinner;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +9,7 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
     View fragmentoSpinner;
-    View fragmentoDesc;
+    Fragment fragmentoDesc;
 
     public static String description;
 
@@ -20,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentoSpinner = (View) findViewById(R.id.spinner);
         fragmentoSpinner.setVisibility(View.VISIBLE);
 
-        fragmentoDesc = (View) findViewById(R.id.description);
-        fragmentoDesc.setVisibility(View.VISIBLE);
+        fragmentoDesc = DescFragment.newInstance();
+        FragmentTransaction ftd = getFragmentManager().beginTransaction();
+        ftd.add(R.id.description, fragmentoDesc).commit();
     }
 }
