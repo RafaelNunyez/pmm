@@ -24,7 +24,6 @@ public class Login extends AppCompatActivity implements NewUser.OnInputListener 
     SQLiteHelper sqLiteHelper;
     SQLiteDatabase bd;
 
-    Cursor cursor1;
     Cursor cursor2;
 
     @Override
@@ -115,6 +114,45 @@ public class Login extends AppCompatActivity implements NewUser.OnInputListener 
 
             }
         });
+    }
+
+    public void login () {
+        String username = usernameInput.getText().toString();
+        String password = passwordInput.getText().toString();
+        String[] userData = {username, password};
+        String[] columns = {
+                SQLSentences.TABLE_USER_NICKNAME,
+                SQLSentences.TABLE_USER_PASSWORD
+        };
+        Cursor cursor;
+        sqLiteHelper.open();
+        cursor = sqLiteHelper.getItems(Globals.
+                                        TABLE_PLAYER_NAME
+                                , columns,
+                                "name = ? AND password = ?"
+                ,
+                userData, Globals.
+                TABLE_PLAYER_FIELD_ID
+);
+        if
+                (cursor.moveToFirst()) {
+            Intent intent =
+                    new
+                            Intent(
+                            this
+                            , MainActivity.
+                            class
+                    );
+            User player = new User(cursor.getString(1), cursor.getString(2));
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(LOGGED_PLAYER, player);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+        sqLiteHelper.close();
     }
 
     @Override

@@ -40,7 +40,7 @@ public final class SQLSentences {
             TABLE_COUNTRY_FLAG
     );
 
-    public static final String CREATE_TABLE_ORDER = String.format(
+    public static final String CREATE_TABLE_RELATION = String.format(
             "CREATE TABLE IF NOT EXISTS %s (" +
                     "%s INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "%s INTEGER NOT NULL REFERENCES %s (%s) " +
@@ -55,4 +55,7 @@ public final class SQLSentences {
             TABLE_COUNTRY,
             TABLE_COUNTRY_ID
     );
+
+    //Filling Tables
+
 }
