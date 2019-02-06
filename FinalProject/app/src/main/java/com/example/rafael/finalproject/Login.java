@@ -1,11 +1,6 @@
 package com.example.rafael.finalproject;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.database.Cursor;
-import android.app.DialogFragment;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +19,7 @@ public class Login extends AppCompatActivity {
     DatabaseHelper dbHelper;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -33,6 +28,8 @@ public class Login extends AppCompatActivity {
 
         userInput = (EditText) findViewById(R.id.UserInput);
         passwordInput = (EditText) findViewById(R.id.PasswordInput);
+
+        dbHelper = new DatabaseHelper(this);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,11 +41,9 @@ public class Login extends AppCompatActivity {
         newUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogNewUser();
+                createUser();
             }
         });
-
-        dbHelper = new DatabaseHelper(this);
     }
 
     private void login () {
@@ -63,10 +58,11 @@ public class Login extends AppCompatActivity {
         dbHelper.open();
         cursor = dbHelper.getItems(SQLSentences.TABLE_USER, columns, "nickname = ? AND password = ?",
         userData, SQLSentences.TABLE_USER_ID);
+
         if (cursor.moveToFirst()) {
             //Intent intent = new Intent(this, MainActivity.class);
-            User player = new User(cursor.getString(1),
-                    cursor.getString(2));
+            User player = new User(cursor.getString(0),
+                    cursor.getString(1));
             //startActivity(intent);
             Toast.makeText(getApplicationContext(), player.getNickName(), Toast.LENGTH_SHORT).show();
         }
@@ -76,15 +72,11 @@ public class Login extends AppCompatActivity {
         dbHelper.close();
     }
 
-    void showDialogNewUser () {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag("newUserButton");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        DialogFragment dialogFragment = newUser.newInstance();
-        dialogFragment.show(ft,"newUserButton");
+    private void createUser () {
+        dbHelper.open();
+        dbHelper.insertItem("INSERT INTO User (nickname, password)" +
+                "VALUES ('" + userInput.getText().toString() + "', " +
+                "'" + passwordInput.getText().toString() + "')");
+        dbHelper.close();
     }
 }
