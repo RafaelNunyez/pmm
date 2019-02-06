@@ -21,6 +21,8 @@ public class Login extends AppCompatActivity {
     EditText userInput;
     EditText passwordInput;
 
+    DatabaseHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        dbHelper = new DatabaseHelper(this);
     }
 
     private void login () {
@@ -56,21 +59,21 @@ public class Login extends AppCompatActivity {
                 SQLSentences.TABLE_USER_NICKNAME,
                 SQLSentences.TABLE_USER_PASSWORD
         };
-        if(!user.isEmpty() && !password.isEmpty()){
-            DatabaseHelper admin= new DatabaseHelper(this, SQLSentences.DATABASE_NAME,null,1);
-            SQLiteDatabase BaseDatos= admin.getWritableDatabase();
-
-            Cursor cursor = BaseDatos.rawQuery("SELECT nickname, password from User where Nombre = '" + user + "';", null);
-            if(cursor.moveToFirst()){
-                //Intent cambio= new Intent(Login.this, MenuPrincipalCompras.class);
-                //startActivity(cambio);
-                Toast.makeText(getApplicationContext(), cursor.getColumnIndex("nickname"),Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getApplicationContext(),"ACCESO DENEGADO\nUSUARIO O CONTRASEÑA INCORRECTOS",Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            Toast.makeText(getApplicationContext(),"Rellena todos los campos",Toast.LENGTH_SHORT).show();
+        Cursor cursor;
+        dbHelper.open();
+        cursor = dbHelper.getItems(SQLSentences.TABLE_USER, columns, "nickname = ? AND password = ?",
+        userData, SQLSentences.TABLE_USER_ID);
+        if (cursor.moveToFirst()) {
+            //Intent intent = new Intent(this, MainActivity.class);
+            User player = new User(cursor.getString(1),
+                    cursor.getString(2));
+            //startActivity(intent);
+            Toast.makeText(getApplicationContext(), player.getNickName(), Toast.LENGTH_SHORT).show();
         }
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+        dbHelper.close();
     }
 
     void showDialogNewUser () {
