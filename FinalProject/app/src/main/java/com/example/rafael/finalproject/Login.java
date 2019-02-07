@@ -1,5 +1,6 @@
 package com.example.rafael.finalproject;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ public class Login extends AppCompatActivity {
         String password = passwordInput.getText().toString();
         String[] userData = {user, password};
         String[] columns = {
+                SQLSentences.TABLE_USER_ID,
                 SQLSentences.TABLE_USER_NICKNAME,
                 SQLSentences.TABLE_USER_PASSWORD
         };
@@ -60,11 +62,16 @@ public class Login extends AppCompatActivity {
         userData, SQLSentences.TABLE_USER_ID);
 
         if (cursor.moveToFirst()) {
-            //Intent intent = new Intent(this, MainActivity.class);
-            User player = new User(cursor.getString(0),
-                    cursor.getString(1));
-            //startActivity(intent);
-            Toast.makeText(getApplicationContext(), player.getNickName(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, CountriesScreen.class);
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("USER", cursor.getInt(0));
+
+            Toast.makeText(getApplicationContext(), "User: " + cursor.getString(1) + " has logged in", Toast.LENGTH_SHORT).show();
+
+            intent.putExtras(bundle);
+            startActivity(intent);
+
         }
         if (!cursor.isClosed()) {
             cursor.close();
