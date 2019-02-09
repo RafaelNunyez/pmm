@@ -1,5 +1,6 @@
 package com.example.rafael.finalproject;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,27 +23,31 @@ public class CountriesScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_countries_screen);
 
         dbHelper = new DatabaseHelper(this);
         dbHelper.open();
 
         userCountries = new ArrayList();
 
-        Cursor cursor2 = dbHelper.getItems(
-                SQLSentences.TABLE_COUNTRY_USER_REL,
-                new String[] {SQLSentences.TABLE_COUNTRY_NAME},
-                "user_id = ?",
-                new String[] {String.valueOf(USER)},
-                SQLSentences.TABLE_COUNTRY_ID);
-        while (cursor2.moveToNext()) {
-            userCountries.add(cursor2.getString(0));
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, userCountries);
-
         USER = getIntent().getIntExtra("USER", 0);
 
-        setContentView(R.layout.activity_countries_screen);
+        Cursor cursor = dbHelper.getItems(
+                SQLSentences.TABLE_COUNTRY_USER_REL + ", " + SQLSentences.TABLE_COUNTRY,
+                new String[] {SQLSentences.TABLE_COUNTRY + "." + SQLSentences.TABLE_COUNTRY_NAME},
+                SQLSentences.TABLE_COUNTRY_USER_REL_COUNTRY_ID + " = " +
+                        SQLSentences.TABLE_COUNTRY + "." +
+                        SQLSentences.TABLE_COUNTRY_ID + " AND user_id = ?",
+                new String[] {String.valueOf(USER)},
+                SQLSentences.TABLE_COUNTRY_USER_REL + "." +
+                        SQLSentences.TABLE_COUNTRY_USER_REL_ID);
+
+        if (cursor.getCount() != 0)
+            while (cursor.moveToNext()) {
+                userCountries.add(cursor.getString(0));
+            }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userCountries);
 
         ListView countryView = (ListView) findViewById(R.id.countryView);
         countryView.setAdapter(adapter);
@@ -52,24 +57,25 @@ public class CountriesScreen extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu (Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_principal, menu);
+        inflater.inflate(R.menu.menu, menu);
 
         return true;
     }
 
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.MnuOpc1:
-                mensaje.setText("Opción 1 Pulsada");
+            case R.id.add:
+                Intent intent = new Intent(this, Add.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("USER", USER);
+
+                intent.putExtras(bundle);
+                startActivity(intent);
                 return true;
-            case R.id.MnuOpc2:
-                mensaje.setText("Opción 2 Pulsada");
-                return true;
-            case R.id.MnuOpc3:
-                mensaje.setText("Opción 3 Pulsada");
-                return true;
-            case R.id.SubItem1:
-                mensaje.setText("SubItem 1 Pulsada");
+            case R.id.refresh:
+                finish();
+                startActivity(getIntent());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
