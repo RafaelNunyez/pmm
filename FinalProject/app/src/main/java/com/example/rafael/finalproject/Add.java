@@ -74,4 +74,11 @@ public class Add extends AppCompatActivity {
         super.onPause();
         dbHelper.close();
     }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+
+        super.onBackPressed();
+    }
 }

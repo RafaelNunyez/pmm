@@ -70,16 +70,22 @@ public class CountriesScreen extends AppCompatActivity {
                 bundle.putInt("USER", USER);
 
                 intent.putExtras(bundle);
-                startActivity(intent);
-
-                return true;
-            case R.id.refresh:
-                finish();
-                startActivity(getIntent());
+                startActivityForResult(intent, 0);
 
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 0 && resultCode == RESULT_OK){
+            finish();
+            startActivity(getIntent());
+        }
+    }
+
 }
