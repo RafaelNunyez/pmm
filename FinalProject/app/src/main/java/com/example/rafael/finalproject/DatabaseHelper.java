@@ -1,6 +1,5 @@
 package com.example.rafael.finalproject;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -44,10 +43,10 @@ public class DatabaseHelper {
         }
 
         private void fillTables(SQLiteDatabase db) {
-            //TODO
             db.beginTransaction();
             try {
                 db.execSQL(SQLSentences.FILL_USER_TABLE);
+                db.execSQL(SQLSentences.FILL_COUNTRY_TABLE);
                 db.setTransactionSuccessful();
             } finally {
                 db.endTransaction();
@@ -73,16 +72,5 @@ public class DatabaseHelper {
 
     public void insertItem (String query) {
         sqLiteDatabase.execSQL(query);
-    }
-
-    public int updateItem (String table, String where, String[] whereArgs, String[][] data) {
-        ContentValues contentValues = new ContentValues();
-        for (String[] field : data)
-            contentValues.put(field[0], field[1]);
-        return sqLiteDatabase.update(table, contentValues, where, whereArgs);
-    }
-
-    public int delete (String table, String where, String[] whereArgs) {
-        return sqLiteDatabase.delete(table, where, whereArgs);
     }
 }
