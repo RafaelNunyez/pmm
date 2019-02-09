@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CountriesScreen"></activity>
+        <activity android:name=".CountriesScreen" />
+        <activity android:name=".Add"></activity>
     </application>
 
 </manifest>
