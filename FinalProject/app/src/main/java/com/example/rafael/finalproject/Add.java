@@ -1,6 +1,5 @@
 package com.example.rafael.finalproject;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,9 +38,8 @@ public class Add extends AppCompatActivity {
                 null,
                 SQLSentences.TABLE_COUNTRY_ID);
 
-        while (cursor2.moveToNext()) {
+        while (cursor2.moveToNext())
             countries.add(cursor2.getString(1));
-        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
 
@@ -61,8 +59,6 @@ public class Add extends AppCompatActivity {
                                 SQLSentences.TABLE_COUNTRY_USER_REL_COUNTRY_ID,
                                 USER,
                                 position + 1));
-
-
                 Toast.makeText(getApplicationContext(), "Added country", Toast.LENGTH_SHORT).show();
             }
         });

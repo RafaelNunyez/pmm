@@ -43,9 +43,8 @@ public class CountriesScreen extends AppCompatActivity {
                         SQLSentences.TABLE_COUNTRY_USER_REL_ID);
 
         if (cursor.getCount() != 0)
-            while (cursor.moveToNext()) {
+            while (cursor.moveToNext())
                 userCountries.add(cursor.getString(0));
-            }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userCountries);
 
@@ -72,10 +71,12 @@ public class CountriesScreen extends AppCompatActivity {
 
                 intent.putExtras(bundle);
                 startActivity(intent);
+
                 return true;
             case R.id.refresh:
                 finish();
                 startActivity(getIntent());
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

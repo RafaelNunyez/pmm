@@ -6,9 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper {
-    private Context myContext = null;
-    private static DataBaseHelperInternal dataBaseHelperInternal = null;
-    private SQLiteDatabase sqLiteDatabase = null;
+    private Context myContext;
+    private static DataBaseHelperInternal dataBaseHelperInternal;
+    private SQLiteDatabase sqLiteDatabase;
 
     public DatabaseHelper(Context ctx) {
         this.myContext = ctx;
@@ -64,10 +64,8 @@ public class DatabaseHelper {
 
     public void close() { dataBaseHelperInternal.close(); }
 
-    public Cursor getItems (String table, String[] columns, String selection,
-                           String[] selArgs, String orderBy) {
-        return sqLiteDatabase.query(table, columns, selection,
-                selArgs,null,null, orderBy);
+    public Cursor getItems (String table, String[] columns, String selection, String[] selArgs, String orderBy) {
+        return sqLiteDatabase.query(table, columns, selection, selArgs,null,null, orderBy);
     }
 
     public void insertItem (String query) {
