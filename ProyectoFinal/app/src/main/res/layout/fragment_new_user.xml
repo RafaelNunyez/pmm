@@ -25,7 +25,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:id="@+id/FragmentUserInput"
+            android:id="@+id/fragmentUserInput"
             android:layout_width="129dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -41,7 +41,7 @@
 
         <EditText
             android:inputType="textPassword"
-            android:id="@+id/FragmentPasswordInput"
+            android:id="@+id/fragmentPasswordInput"
             android:layout_width="129dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -51,18 +51,18 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:layout_margin="20px"
-            android:text="CANCEL"
-            android:id="@+id/CancelAction"
+            android:id="@+id/cancelAction"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:text="CANCEL" />
 
         <Button
-            android:layout_margin="20px"
-            android:text="CREATE"
-            android:id="@+id/InsertNewUser"
+            android:id="@+id/insertNewUser"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:text="CREATE" />
 
     </LinearLayout>
 

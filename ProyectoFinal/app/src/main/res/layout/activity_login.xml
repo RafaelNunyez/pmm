@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".Pantalla1">
+    tools:context=".Login">
 
 
     <LinearLayout
@@ -60,14 +60,14 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/NewUser"
+            android:id="@+id/newUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20px"
             android:text="New User" />
 
         <Button
-            android:id="@+id/NewLogin"
+            android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login" />

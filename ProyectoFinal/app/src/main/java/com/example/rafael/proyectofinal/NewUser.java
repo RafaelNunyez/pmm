@@ -1,8 +1,6 @@
 package com.example.rafael.proyectofinal;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,10 +20,10 @@ import java.util.ArrayList;
 public class NewUser extends DialogFragment {
 
 
-private EditText UserInput;
-private EditText PasswordInput;
-private Button CreateUser;
-private Button CancelAction;
+private EditText userInput;
+private EditText passwordInput;
+private Button createUser;
+private Button cancelAction;
         ArrayList arrayList;
         Boolean checker = true;
 
@@ -53,55 +51,53 @@ public interface OnInputListener{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_user, container, false);
-        CreateUser = view.findViewById(R.id.InsertNewUser);
-        CancelAction = view.findViewById(R.id.CancelAction);
+        createUser = view.findViewById(R.id.insertNewUser);
+        cancelAction = view.findViewById(R.id.cancelAction);
 
-        UserInput = view.findViewById(R.id.FragmentUserInput);
-        PasswordInput = view.findViewById(R.id.FragmentPasswordInput);
+        userInput = view.findViewById(R.id.fragmentUserInput);
+        passwordInput = view.findViewById(R.id.fragmentPasswordInput);
 
-        CancelAction.setOnClickListener(new View.OnClickListener() {
+        cancelAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getDialog().dismiss();
             }
         });
 
-        CreateUser.setOnClickListener(new View.OnClickListener() {
+        createUser.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                String nickNameInput = UserInput.getText().toString();
-                String passwordInput = PasswordInput.getText().toString();
+                String nickNameInput = userInput.getText().toString();
+                String passwordInput = NewUser.this.passwordInput.getText().toString();
 
                 String user = "";
                 String password = "";
-                String mail = "";
 
-                if(nickNameInput.equalsIgnoreCase("") || passwordInput.equalsIgnoreCase("")){
+                if (nickNameInput.equalsIgnoreCase("") || passwordInput.equalsIgnoreCase("")){
                     Toast.makeText(getContext(), "You have to insert a nickanem and a password", Toast.LENGTH_SHORT).show();
-                    UserInput.setText("");
-                    PasswordInput.setText("");
+                    userInput.setText("");
+                    NewUser.this.passwordInput.setText("");
                 }
-                for(int i = 0; i < arrayList.size();i++){
+                for (int i = 0; i < arrayList.size();i++){
                     String value = (String) arrayList.get(i);
-                    if(value.equalsIgnoreCase(UserInput.getText().toString())){
+                    if(value.equalsIgnoreCase(userInput.getText().toString())){
                         checker = false;
                         Toast.makeText(getContext(), "The nickname is on use", Toast.LENGTH_SHORT).show();
-                        UserInput.setText("");
-                        PasswordInput.setText("");
+                        userInput.setText("");
+                        NewUser.this.passwordInput.setText("");
+                        getDialog().dismiss();
                     }
                 }
                 if(checker){
                     ArrayList UserCreated = new ArrayList();
-                    UserCreated.add(UserInput.getText().toString());
-                    UserCreated.add(PasswordInput.getText().toString());
+                    UserCreated.add(userInput.getText().toString());
+                    UserCreated.add(NewUser.this.passwordInput.getText().toString());
                     onInputListener.sendInput(UserCreated);
                     getDialog().dismiss();
                 }else{
                     Toast.makeText(getContext(), "Error al crear el usuario", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
 

@@ -24,6 +24,9 @@ public class Login extends AppCompatActivity implements NewUser.OnInputListener 
     SQLiteHelper sqLiteHelper;
     SQLiteDatabase bd;
 
+    EditText userInput = null;
+    EditText passwordInput = null;
+
     Cursor cursor2;
 
     @Override
@@ -37,23 +40,12 @@ public class Login extends AppCompatActivity implements NewUser.OnInputListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button NewUser = (Button) findViewById(R.id.NewUser);
-        Button NewLogin = (Button) findViewById(R.id.NewLogin);
-        final EditText UserInput = (EditText) findViewById(R.id.UserInput);
-        final EditText PasswordInput = (EditText) findViewById(R.id.PasswordInput);
+        Button newUser = (Button) findViewById(R.id.newUser);
+        Button login = (Button) findViewById(R.id.login);
+        userInput = (EditText) findViewById(R.id.UserInput);
+        passwordInput = (EditText) findViewById(R.id.PasswordInput);
 
-        sqLiteHelper = new SQLiteHelper(this, "Users", null, 1);
-        bd = sqLiteHelper.getWritableDatabase();
-
-
-
-        //bd.execSQL("INSERT INTO Users ( nickName, password) " +
-        //       "VALUES ('" + "carles" + "', '" + "1234" + "')");
-
-
-        //String [] tables1 = new String[]{"nickName", "password", "mail"};
-        //String [] selectUser1 = new String[]{UserInput.getText().toString()};
-        //cursor1 = bd.query("Users", tables1, "nickName=?", selectUser1, null, null, null);
+        sqLiteHelper = new SQLiteHelper(this);
 
         cursor2 = bd.rawQuery("SELECT nickName FROM Users",null);
 
@@ -68,19 +60,19 @@ public class Login extends AppCompatActivity implements NewUser.OnInputListener 
             }
         }
 
-        NewUser.setOnClickListener(new View.OnClickListener() {
+        newUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog();
             }
         });
 
-        NewLogin.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sqLiteHelper.open();
                 String user = "";
                 String password = "";
-                String mail = "";
 
                 cursor2 = bd.rawQuery("SELECT nickName FROM Users",null);
 
@@ -94,12 +86,12 @@ public class Login extends AppCompatActivity implements NewUser.OnInputListener 
                 }
                 boolean checker = false;
                 for(int i = 0; i < arrayList1.size(); i++){
-                    if(((String) arrayList1.get(i)).equalsIgnoreCase(UserInput.getText().toString())){
+                    if(((String) arrayList1.get(i)).equalsIgnoreCase(userInput.getText().toString())){
                         checker = true;
                     }
                 }
                 if(checker){
-                    User userRegistered = new User(UserInput.getText().toString(), PasswordInput.getText().toString());
+                    User userRegistered = new User(userInput.getText().toString(), passwordInput.getText().toString());
                     Toast.makeText(getApplicationContext(), "Login succeed",Toast.LENGTH_LONG).toString();
                     Intent intent = new Intent(Login.this, null); //Pantalla 3
                     Bundle bundle = new Bundle();
@@ -108,59 +100,14 @@ public class Login extends AppCompatActivity implements NewUser.OnInputListener 
                     startActivity(intent);
                 }else{
                     Toast.makeText(getApplicationContext(), "Login failed",Toast.LENGTH_LONG).show();
-                    PasswordInput.setText("");
+                    passwordInput.setText("");
                 }
 
-
+                sqLiteHelper.close();
             }
         });
     }
-
-    public void login () {
-        String username = usernameInput.getText().toString();
-        String password = passwordInput.getText().toString();
-        String[] userData = {username, password};
-        String[] columns = {
-                SQLSentences.TABLE_USER_NICKNAME,
-                SQLSentences.TABLE_USER_PASSWORD
-        };
-        Cursor cursor;
-        sqLiteHelper.open();
-        cursor = sqLiteHelper.getItems(Globals.
-                                        TABLE_PLAYER_NAME
-                                , columns,
-                                "name = ? AND password = ?"
-                ,
-                userData, Globals.
-                TABLE_PLAYER_FIELD_ID
-);
-        if
-                (cursor.moveToFirst()) {
-            Intent intent =
-                    new
-                            Intent(
-                            this
-                            , MainActivity.
-                            class
-                    );
-            User player = new User(cursor.getString(1), cursor.getString(2));
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(LOGGED_PLAYER, player);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-        if (!cursor.isClosed()) {
-            cursor.close();
-        }
-        sqLiteHelper.close();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        cursor2 = bd.rawQuery("SELECT nickName FROM Users",null);
-    }
-
+    
     void showDialog() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Fragment prev = getFragmentManager().findFragmentByTag("NewUser");
