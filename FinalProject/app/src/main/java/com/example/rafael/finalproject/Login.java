@@ -62,16 +62,22 @@ public class Login extends AppCompatActivity {
         userData, SQLSentences.TABLE_USER_ID);
 
         if (cursor.moveToFirst()) {
-            Intent intent = new Intent(this, CountriesScreen.class);
+            if (cursor.getString(2).equals(userInput.getText().toString())) {
+                Intent intent = new Intent(this, CountriesScreen.class);
 
-            Bundle bundle = new Bundle();
-            bundle.putInt("USER", cursor.getInt(0));
+                Bundle bundle = new Bundle();
+                bundle.putInt("USER", cursor.getInt(0));
 
-            Toast.makeText(getApplicationContext(), "User: " + cursor.getString(1) + " has logged in", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "User: " + cursor.getString(1) + " has logged in", Toast.LENGTH_SHORT).show();
 
-            intent.putExtras(bundle);
-            startActivity(intent);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "Invalid user or password", Toast.LENGTH_SHORT).show();
+            }
 
+        } else {
+            Toast.makeText(getApplicationContext(), "Invalid password", Toast.LENGTH_SHORT).show();
         }
         if (!cursor.isClosed()) {
             cursor.close();
@@ -81,9 +87,28 @@ public class Login extends AppCompatActivity {
 
     private void createUser () {
         dbHelper.open();
-        dbHelper.insertItem("INSERT INTO User (nickname, password)" +
-                "VALUES ('" + userInput.getText().toString() + "', " +
-                "'" + passwordInput.getText().toString() + "')");
+
+        Cursor cursor = dbHelper.getItems(
+                SQLSentences.TABLE_USER,
+                new String[] { SQLSentences.TABLE_USER_NICKNAME },
+                "nickname = ? AND password = ?",
+                new String[] { userInput.getText().toString(), passwordInput.getText().toString() },
+                SQLSentences.TABLE_USER_ID);
+
+        if (cursor.moveToFirst()) {
+
+            if (cursor.getString(0).equals(userInput.getText().toString())) {
+                Toast.makeText(getApplicationContext(), "User: " + userInput.getText().toString() + " is already created", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+
+
+            dbHelper.insertItem("INSERT INTO User (nickname, password)" +
+                    "VALUES ('" + userInput.getText().toString() + "', " +
+                    "'" + passwordInput.getText().toString() + "')");
+            Toast.makeText(getApplicationContext(), "User: " + userInput.getText().toString() + " has been created", Toast.LENGTH_SHORT).show();
+        }
+
         dbHelper.close();
     }
 }
