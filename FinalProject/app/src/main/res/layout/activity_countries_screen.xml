@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="2">
 
-    <ListView
-        android:layout_height="wrap_content"
-        android:id="@+id/countryView"
-        android:layout_width="fill_parent">
-    </ListView>
+    <fragment
+        android:id="@+id/visitCountries"
+        android:name="com.example.rafael.finalproject.visitCountries"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:layout="@layout/fragment_visit_countries" />
+
+    <fragment
+        android:id="@+id/visitedCountriesUser"
+        android:name="com.example.rafael.finalproject.visitedCountries"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:layout="@layout/fragment_visited_countries" />
 
 </LinearLayout>

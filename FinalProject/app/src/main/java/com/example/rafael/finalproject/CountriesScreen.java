@@ -1,5 +1,8 @@
 package com.example.rafael.finalproject;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -20,12 +24,25 @@ public class CountriesScreen extends AppCompatActivity {
 
     ArrayList<String> userCountries;
 
+    Fragment visitedCountryFragment, visitCountryFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_countries_screen);
 
-        dbHelper = new DatabaseHelper(this);
+        USER = getIntent().getIntExtra("USER", 0);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("USER", USER);
+        visitCountryFragment = new visitCountries();
+        visitedCountryFragment = new visitedCountries();
+        visitCountryFragment.setArguments(bundle);
+        visitedCountryFragment.setArguments(bundle);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.visitCountries, visitCountryFragment).replace(R.id.visitedCountriesUser, visitedCountryFragment).addToBackStack(null).commit();
+
+        /*dbHelper = new DatabaseHelper(this);
         dbHelper.open();
 
         userCountries = new ArrayList();
@@ -51,7 +68,7 @@ public class CountriesScreen extends AppCompatActivity {
         ListView countryView = (ListView) findViewById(R.id.countryView);
         countryView.setAdapter(adapter);
 
-        dbHelper.close();
+        dbHelper.close();*/
     }
 
     public boolean onCreateOptionsMenu (Menu menu) {

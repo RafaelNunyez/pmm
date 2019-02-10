@@ -16,11 +16,13 @@ public final class SQLSentences {
     public static final String TABLE_COUNTRY_USER_REL_ID = "id";
     public static final String TABLE_COUNTRY_USER_REL_USER_ID = "user_id";
     public static final String TABLE_COUNTRY_USER_REL_COUNTRY_ID = "country_id";
+    public static final String TABLE_COUNTRY_USER_REL_VISIT = "visit";
+    public static final String TABLE_COUNTRY_USER_REL_VISITED = "visited";
 
     public static final String CREATE_TABLE_USER = String.format(
             "CREATE TABLE IF NOT EXISTS %s (" +
                     "%s INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "%s TEXT NOT NULL, " +
+                    "%s TEXT UNIQUE NOT NULL, " +
                     "%s TEXT NOT NULL)",
             TABLE_USER,
             TABLE_USER_ID,
@@ -41,7 +43,9 @@ public final class SQLSentences {
             "CREATE TABLE IF NOT EXISTS %s (" +
                     "%s INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "%s INTEGER NOT NULL REFERENCES %s (%s), " +
-                    "%s INTEGER NOT NULL REFERENCES %s (%s))",
+                    "%s INTEGER NOT NULL REFERENCES %s (%s), " +
+                    "%s INTEGER NOT NULL, " +
+                    "%s INTEGER NOT NULL)",
 
             TABLE_COUNTRY_USER_REL,
             TABLE_COUNTRY_USER_REL_ID,
@@ -50,7 +54,9 @@ public final class SQLSentences {
             TABLE_USER_ID,
             TABLE_COUNTRY_USER_REL_COUNTRY_ID,
             TABLE_COUNTRY,
-            TABLE_COUNTRY_ID
+            TABLE_COUNTRY_ID,
+            TABLE_COUNTRY_USER_REL_VISIT,
+            TABLE_COUNTRY_USER_REL_VISITED
     );
 
     //Filling Tables
