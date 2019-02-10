@@ -1,13 +1,8 @@
 package com.example.rafael.finalproject;
 
-import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-
 
 public class visitCountries extends Fragment {
     int user;
@@ -26,20 +20,6 @@ public class visitCountries extends Fragment {
 
     ArrayList<String> userCountries;
 
-    static visitCountries newInstance() {
-        visitCountries f = new visitCountries();
-        return f;
-    }
-
-    static visitCountries newInstance(int user) {
-        visitCountries f = new visitCountries();
-        Bundle args = new Bundle();
-        args.putSerializable("USER", user);
-        f.setArguments(args);
-        return f;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view;
         view = inflater.inflate(R.layout.fragment_visit_countries, container, false);
@@ -52,7 +32,6 @@ public class visitCountries extends Fragment {
             dbHelper.open();
 
             userCountries = new ArrayList();
-
 
             Cursor cursor = dbHelper.getItems(
                     SQLSentences.TABLE_COUNTRY_USER_REL + ", " + SQLSentences.TABLE_COUNTRY,
@@ -69,13 +48,12 @@ public class visitCountries extends Fragment {
                 while (cursor.moveToNext())
                     userCountries.add(cursor.getString(0));
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, userCountries);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, userCountries);
 
             visitedCountryList.setAdapter(adapter);
 
             dbHelper.close();
         }
         return view;
-
     }
 }

@@ -19,6 +19,7 @@ public final class SQLSentences {
     public static final String TABLE_COUNTRY_USER_REL_VISIT = "visit";
     public static final String TABLE_COUNTRY_USER_REL_VISITED = "visited";
 
+    //Creating tables
     public static final String CREATE_TABLE_USER = String.format(
             "CREATE TABLE IF NOT EXISTS %s (" +
                     "%s INTEGER PRIMARY KEY AUTOINCREMENT, " +

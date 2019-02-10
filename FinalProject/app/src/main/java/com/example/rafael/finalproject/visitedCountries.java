@@ -1,16 +1,13 @@
 package com.example.rafael.finalproject;
 
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,20 +20,6 @@ public class visitedCountries extends Fragment {
 
     ArrayList<String> userCountries;
 
-    static visitedCountries newInstance() {
-        visitedCountries f = new visitedCountries();
-        return f;
-    }
-
-    static visitedCountries newInstance(int user) {
-        visitedCountries f = new visitedCountries();
-        Bundle args = new Bundle();
-        args.putSerializable("USER", user);
-        f.setArguments(args);
-        return f;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view;
         view = inflater.inflate(R.layout.fragment_visited_countries, container, false);
@@ -72,6 +55,5 @@ public class visitedCountries extends Fragment {
             dbHelper.close();
         }
         return view;
-
     }
 }

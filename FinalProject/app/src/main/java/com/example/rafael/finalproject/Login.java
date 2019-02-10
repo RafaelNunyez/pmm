@@ -72,13 +72,12 @@ public class Login extends AppCompatActivity {
 
                 intent.putExtras(bundle);
                 startActivity(intent);
-            } else {
+            } else
                 Toast.makeText(getApplicationContext(), "Invalid user or password", Toast.LENGTH_SHORT).show();
-            }
-
         } else {
             Toast.makeText(getApplicationContext(), "Invalid password", Toast.LENGTH_SHORT).show();
         }
+
         if (!cursor.isClosed()) {
             cursor.close();
         }
@@ -96,13 +95,9 @@ public class Login extends AppCompatActivity {
                 SQLSentences.TABLE_USER_ID);
 
         if (cursor.moveToFirst()) {
-
-            if (cursor.getString(0).equals(userInput.getText().toString())) {
+            if (cursor.getString(0).equals(userInput.getText().toString()))
                 Toast.makeText(getApplicationContext(), "User: " + userInput.getText().toString() + " is already created", Toast.LENGTH_SHORT).show();
-            }
         } else {
-
-
             dbHelper.insertItem("INSERT INTO User (nickname, password)" +
                     "VALUES ('" + userInput.getText().toString() + "', " +
                     "'" + passwordInput.getText().toString() + "')");
